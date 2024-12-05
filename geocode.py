@@ -1,3 +1,6 @@
+# dit script maakt een nieuwe csv "adress_with_latlon.csv" naast al je postcode data.
+# deze csv bevat de latitude & longtitude van elk bedrijf.
+
 import pandas as pd
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut

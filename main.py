@@ -1,3 +1,5 @@
+# deze file kijkt naar al je data en haalt er alle bedrijven met een specifieke postcode uit
+
 import os
 import pandas as pd
 import sys

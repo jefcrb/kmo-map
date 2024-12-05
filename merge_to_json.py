@@ -1,3 +1,5 @@
+# deze file merged alle data van de bedrijven in 1 json file
+
 import pandas as pd
 import json
 
