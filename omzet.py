@@ -1,0 +1,1 @@
+# dit script kijkt naar alle bedrijven in je postcode en voegt hun omzet van vorig jaar toe
