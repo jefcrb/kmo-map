@@ -1,44 +1,37 @@
-import csv
-from geopy.geocoders import Nominatim
+import os
+import pandas as pd
+import sys
 
-def geocode_addresses(input_csv, output_csv):
-    # Initialize the geocoder
-    geolocator = Nominatim(user_agent="geoapp")
+input_dir = './data'
 
-    # Open the input CSV file
-    with open(input_csv, mode='r', newline='', encoding='utf-8') as infile:
-        reader = csv.DictReader(infile)
-        # Get fieldnames from the input CSV and add new ones for output
-        fieldnames = reader.fieldnames + ['Latitude', 'Longitude']
-        
-        # Open the output CSV file
-        with open(output_csv, mode='w', newline='', encoding='utf-8') as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=fieldnames)
-            writer.writeheader()
+files = [
+    "activity.csv",
+    "address.csv",
+    "contact.csv",
+    "denomination.csv",
+]
 
-            # Process each row
-            for row in reader:
-                address = row.get('Address')  # Adjust 'Address' to match the actual column name
-                try:
-                    # Geocode the address
-                    location = geolocator.geocode(address)
-                    if location:
-                        row['Latitude'] = location.latitude
-                        row['Longitude'] = location.longitude
-                    else:
-                        row['Latitude'] = None
-                        row['Longitude'] = None
-                except Exception as e:
-                    print(f"Error geocoding address {address}: {e}")
-                    row['Latitude'] = None
-                    row['Longitude'] = None
+if len(sys.argv) < 2:
+    print("Invalid input")
+if len(sys.argv[1]) != 4:
+    print("Invalid input")
 
-                # Write the row to the output CSV
-                writer.writerow(row)
+output_dir = f'./data_{sys.argv[1]}'
 
-# Specify the input and output CSV files
-input_csv = 'address.csv'
-output_csv = 'geocoded_addresses.csv'
+os.makedirs(output_dir, exist_ok=True)
 
-# Call the function
-geocode_addresses(input_csv, output_csv)
+address_file = os.path.join(input_dir, "address.csv")
+address_df = pd.read_csv(address_file)
+filtered_entity_numbers = address_df[address_df["Zipcode"] == sys.argv[1]]["EntityNumber"].unique()
+
+for file in files:
+    input_file_path = os.path.join(input_dir, file)
+    output_file_path = os.path.join(output_dir, file)
+    
+    df = pd.read_csv(input_file_path)
+    
+    filtered_df = df[df["EntityNumber"].isin(filtered_entity_numbers)]
+
+    filtered_df.to_csv(output_file_path, index=False)
+
+print(f"Filtered files have been written to {output_dir}")
