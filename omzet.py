@@ -5,7 +5,6 @@
 
 import pandas as pd
 import requests
-import json
 from io import BytesIO
 
 def fetch_company_data(enterpriseNumber):
@@ -59,7 +58,7 @@ def fetch_omzet_data(id):
 
 if __name__ == "__main__":
     input_file = "./data_2060/address.csv"
-    output_file = "./data_2060/EntityNumber_with_omzet.csv"
+    output_file = "./data_2060/idkWhereThisComesFrom.csv"
 
     # Read address data
     address_data = pd.read_csv(input_file)
@@ -79,8 +78,10 @@ if __name__ == "__main__":
                             omzet = omzet_csv[omzet_csv['Key'].str.startswith('20/58', na=False)].iloc[0]["Value"]
                             print(entitynumber)
                             print(omzet)
-                            # address_data["Omzet"] = omzet
-
+                            with open("./data_2060/EntityNumber_with_omzet.csv","a") as file:
+                                file.write(f"{entitynumber},{omzet}\n")
+                            
+    
     address_data.to_csv(output_file, index=False)
 
 
