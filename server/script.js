@@ -65,8 +65,9 @@ fetch('data.json')
                 var popupContent = `
                     <strong>${entry.Denomination}</strong><br/>
                     Address: ${entry.FullAddress}<br/>
-                    ${contactInfo}
-                    Entity Number: ${entry.EntityNumber}
+                    ${contactInfo}<br/>
+                    Entity Number: ${entry.EntityNumber}<br/>
+                    Omzet: ${entry.omzet}
                 `;
 
                 marker.bindPopup(popupContent);
