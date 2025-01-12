@@ -10,6 +10,6 @@ Het project bestand momenteel KBO data voor postcodes 2060 en 2000. Als je de vo
     python main.py <postcode>
    ```
 3. Vervolgens moeten de adressen uit de KBO data worden omgezet naar hun respectievelijke coördinaten. Dit kan enige tijd duren.
-  ```
-    python geocody.py <postcode>
-  ```
+     ```
+       python geocody.py <postcode>
+     ```
