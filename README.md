@@ -19,10 +19,16 @@ Het project bestand momenteel KBO data voor postcodes 2000, 2140 en 2060. Als je
       ```
       python omzet.py <postcode>
       ```
-5. Zet daarna de data om naar json, en start ten slotte de server op:
+5. Zet daarna de data om naar json:
       ```
       python merge_to_json.py
+      ```
+6. Start ten slotte de server op:
+      ```
       cd server
       python -m http.server 8000
       ```
+      
       De KMO is nu beschikbaar op http://localhost:8000
+
+**Als je aan de slag wil gaan met de bestaande data (postcode 2060), voer dan alleen stap 6 uit.**
