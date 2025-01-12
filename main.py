@@ -14,9 +14,9 @@ files = [
 ]
 
 if len(sys.argv) < 2:
-    print("Invalid input")
+    print("Slechte input")
 if len(sys.argv[1]) != 4:
-    print("Invalid input")
+    print("Slechte input")
 
 output_dir = f'./data_{sys.argv[1]}'
 
@@ -36,4 +36,4 @@ for file in files:
 
     filtered_df.to_csv(output_file_path, index=False)
 
-print(f"Filtered files have been written to {output_dir}")
+print(f"Gefilterde resultaten staan in {output_dir}")

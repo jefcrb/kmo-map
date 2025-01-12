@@ -10,7 +10,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.marker([startLat, startLon])
     .addTo(map)
-    .bindPopup("Center Point")
+    .bindPopup("Center")
     .openPopup();
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -26,31 +26,23 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     return distance;
 }
 
-// Mapping of contact types to user-friendly labels
 var contactLabels = {
     'TEL': 'Telephone',
     'EMAIL': 'Email',
-    // Add other mappings if necessary
 };
 
-// Fetch data from data.json
 fetch('data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(entry => {
-            // Extract latitude and longitude
             var lat = entry.Latitude;
             var lon = entry.Longitude;
 
-            // Calculate distance from the given point
             var distance = calculateDistance(startLat, startLon, lat, lon);
 
-            // If the distance is within the specified radius, add the marker
             if (distance <= radiusInKm) {
-                // Create a marker
                 var marker = L.marker([lat, lon]).addTo(map);
 
-                // Build the contact information
                 var contactInfo = '';
                 if (entry.Contacts) {
                     for (var contactType in entry.Contacts) {
@@ -58,13 +50,12 @@ fetch('data.json')
                         contactInfo += `<strong>${label}:</strong> ${entry.Contacts[contactType]}<br/>`;
                     }
                 } else {
-                    contactInfo = 'No contact information available.<br/>';
+                    contactInfo = 'Geen contactinformatie<br/>';
                 }
 
-                // Create a popup with extra information
                 var popupContent = `
                     <strong>${entry.Denomination}</strong><br/>
-                    Address: ${entry.FullAddress}<br/>
+                    Adres: ${entry.FullAddress}<br/>
                     ${contactInfo}<br/>
                     Entity Number: ${entry.EntityNumber}<br/>
                     Omzet: ${entry.omzet}
@@ -74,4 +65,4 @@ fetch('data.json')
             }
         });
     })
-    .catch(error => console.error('Error loading the data:', error));
+    .catch(error => console.error('Fout:', error));

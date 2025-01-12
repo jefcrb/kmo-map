@@ -67,7 +67,7 @@ if __name__ == "__main__":
     for entitynumber in address_data['EntityNumber']:
         data = fetch_company_data(entitynumber.replace(".","")) # krijg de data over het bedrijf
 
-        if data is not None:        # soms krijg je een none
+        if data is not None:        # soms krijg je none
             if "content" in data:   # effe checken dat er wel content is
                 if len(data["content"])>0:      # soms is er geen data over het bedrijf. daar moeten we ook niets van opzoeken
                     # print(data["content"][0]["id"])         # dan hebben we index 0 nodig omdat dat altijd de recentste is en we zoeken de id voor de latere request.
